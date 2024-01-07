@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('people', function (Blueprint $table) {
+        Schema::create('persons', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
             $table->integer('profession_id');
@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('photo');
             $table->string('sex')->nullable();
             $table->string('experience');
-            $table->integer('professionlevel_id');
             $table->enum('raiting', ['1','2','3','4']);
             $table->integer('status');
             $table->timestamps();
