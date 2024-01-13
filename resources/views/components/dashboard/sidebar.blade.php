@@ -1,6 +1,6 @@
 <header class="main-nav">
     <div class="sidebar-user text-center">
-        <img class="img-90 rounded-circle" src="../assets/images/dashboard/1.png" alt="">
+        <img class="img-90 rounded-circle" src="/assets/images/dashboard/1.png" alt="">
         <a href="user-profile.html">
             <h6 class="mt-3 f-14 f-w-600">{{ Auth::user()->name }}</h6>
         </a>
@@ -18,13 +18,28 @@
                             <h6>Меню</h6>
                         </div>
                     </li>
-                    <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="home"></i><span>Dropdown</span></a>
+                    <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="home"></i><span>Организация данные</span></a>
                         <ul class="nav-submenu menu-content">
-                            <li><a href="dashboard-02.html">Лист</a></li>
-                            <li><a href="index.html">Создать</a></li>
+                            <li><a href="{{route('dashboard.organization.index')}}">Организация</a></li>
+                            <li><a href="{{route('dashboard.region.index')}}">Регион</a></li>
+                            <li><a href="{{route('dashboard.district.index')}}">Округ</a></li>
+                            <li><a href="{{route('dashboard.organizationtype.index')}}">Тип организации</a></li>
+                            <li><a href="{{route('dashboard.type.index')}}">Тип учреждения</a></li>
+                            <li><a href="{{route('dashboard.service.index')}}">Услуга</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a class="nav-link menu-title link-nav" href="jsgrid-table.html"><i data-feather="file-text"></i><span>Link</span></a></li>
+                    <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="home"></i><span>Человек данные</span></a>
+                        <ul class="nav-submenu menu-content">
+                            <li><a href="{{route('dashboard.person.index')}}">Человек</a></li>
+                            <li><a href="{{route('dashboard.profession.index')}}">Профессия</a></li>
+                            <li><a href="{{route('dashboard.professionlavel.index')}}">Уровень профессии</a></li>
+                        </ul>
+                    </li>
+                    {{-- <li class="dropdown">
+                        <a class="nav-link menu-title link-nav" href="jsgrid-table.html"><i data-feather="file-text"></i>
+                            <span>Link</span>
+                        </a>
+                    </li> --}}
                 </ul>
             </div>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

@@ -9,18 +9,34 @@ class Organization extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'region_id',
-        'district_id',
-        'address',
-        'long_lat',
-        'name',
-        'phone',
-        'title',
-        'description',
-        'photo',
-        'gallery',
-        'raiting',
-        'status',
-    ];
+    protected $guarded = [];
+
+    // public function organizationtypes()
+    // {
+    //     return $this->belongsToMany(OrganizationType::class, 'organization_type_organization', 'organization_id', 'organization_type');
+    // }
+    public function organizationtypes()
+    {
+        return $this->belongsToMany(OrganizationType::class);
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
+
+    public function districts()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function regions()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function types()
+    {
+        return $this->belongsTo(Type::class, 'type_id');
+    }
 }

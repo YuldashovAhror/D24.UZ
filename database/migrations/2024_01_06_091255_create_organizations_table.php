@@ -26,8 +26,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('photo');
             $table->string('gallery')->nullable();
-            $table->enum('raiting', ['1','2','3','4']);
-            $table->integer('status');
+            $table->string('status');
+            $table->integer('raiting');
             $table->timestamps();
         });
     }

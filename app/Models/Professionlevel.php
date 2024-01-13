@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Professionlevel extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+    ];
+
+    public function persons()
+    {
+        return $this->belongsToMany(Person::class);
+    }
 }

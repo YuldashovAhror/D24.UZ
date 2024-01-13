@@ -1,5 +1,4 @@
 @extends('layouts.dashboard.main')
-
 @section('content')
 
         <div class="col-sm-12">

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+    ];
+
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class);
+    }
 }

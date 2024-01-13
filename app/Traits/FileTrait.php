@@ -14,16 +14,16 @@ trait FileTrait
 
         $photoPath = '/' . $directory . '/' . Str::random(10) . '.webp';
 
-        if (file_exists(public_path($directory))){
+        if (file_exists(public_path($directory))) {
             Image::make($photo)->encode('webp', 90)->resize($width, $height)->save(public_path($photoPath));
-        }else{
-            mkdir(public_path($directory), 0700, true);
+        } else {
+            mkdir(public_path($directory), 0777, true);
             Image::make($photo)->encode('webp', 90)->resize($width, $height)->save(public_path($photoPath));
         }
         return $photoPath;
     }
 
-    public function videoSave($video, $directory)
+    public function fileSave($video, $directory)
     {
         $videoName = Str::random(10) . '.' . $video->getClientOriginalExtension();
 
@@ -33,8 +33,15 @@ trait FileTrait
 
     public function fileDelete($model, $id, $col_name)
     {
-        if (is_file(public_path($model::find($id)->$col_name))){
-            unlink(public_path() . $model::find($id)->$col_name);
+        if (!is_null($model)) {
+            $model = 'App\Models' . $model;
+            if (is_file(public_path($model::find($id)->$col_name))) {
+                unlink(public_path() . $model::find($id)->$col_name);
+            }
+        } else {
+            if (is_file(public_path($col_name))) {
+                unlink(public_path() . $col_name);
+            }
         }
         return back();
     }

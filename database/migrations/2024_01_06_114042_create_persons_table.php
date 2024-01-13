@@ -27,8 +27,8 @@ return new class extends Migration
             $table->string('photo');
             $table->string('sex')->nullable();
             $table->string('experience');
-            $table->enum('raiting', ['1','2','3','4']);
-            $table->integer('status');
+            $table->enum('status', ['1','2','3','4']);
+            $table->integer('raiting');
             $table->timestamps();
         });
     }
