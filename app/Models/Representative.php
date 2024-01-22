@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Representative extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'service_id',
+        'link',
     ];
 
-    public function organizations()
+    public function medicines()
     {
-        return $this->belongsToMany(Organization::class);
+        return $this->hasMany(Medicine::class);
     }
 }

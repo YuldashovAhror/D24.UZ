@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DistrictController;
+use App\Http\Controllers\Dashboard\MedicineCategoryController;
+use App\Http\Controllers\Dashboard\MedicineController;
+use App\Http\Controllers\Dashboard\MedicineTypeController;
 use App\Http\Controllers\Dashboard\OrganizationController;
 use App\Http\Controllers\Dashboard\OrganizationTypeController;
 use App\Http\Controllers\Dashboard\PersonController;
 use App\Http\Controllers\Dashboard\ProfessionController;
 use App\Http\Controllers\Dashboard\ProfessionlevelController;
 use App\Http\Controllers\Dashboard\RegionController;
+use App\Http\Controllers\Dashboard\RepresentativeController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\TypeController;
 use App\Models\Professionlevel;
@@ -41,6 +45,11 @@ Route::group(['prefix' => 'dashboard'], function (){
         Route::resource('/professionlavel', ProfessionlevelController::class);
 
         Route::get('/getdistrict', [RegionController::class, 'getdistrict']);
+
+        Route::resource('/medicine', MedicineController::class);
+        Route::resource('/medicinetype', MedicineTypeController::class);
+        Route::resource('/medicinecategory', MedicineCategoryController::class);
+        Route::resource('/representative', RepresentativeController::class);
 
     });
 });

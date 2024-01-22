@@ -35,9 +35,29 @@
                             <li><a href="{{route('dashboard.professionlavel.index')}}">Уровень профессии</a></li>
                         </ul>
                     </li>
+
+                    <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="home"></i><span>Лекарство данные</span></a>
+                        <ul class="nav-submenu menu-content">
+                            <li><a href="{{route('dashboard.medicine.index')}}">Лекарство</a></li>
+                            <li><a href="{{route('dashboard.medicinecategory.index')}}">Категория лекарства</a></li>
+                            <li><a href="{{route('dashboard.representative.index')}}">Представитель</a></li>
+                            <li><a href="{{route('dashboard.medicinetype.index')}}">Тип лекарства</a></li>
+                        </ul>
+                    </li>
+
                     {{-- <li class="dropdown">
-                        <a class="nav-link menu-title link-nav" href="jsgrid-table.html"><i data-feather="file-text"></i>
-                            <span>Link</span>
+                        <a class="nav-link menu-title link-nav" href="{{route('dashboard.medicinecategory.index')}}"><i data-feather="file-text"></i>
+                            <span>Категория медицины</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="nav-link menu-title link-nav" href="{{route('dashboard.representative.index')}}"><i data-feather="file-text"></i>
+                            <span>Представитель</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="nav-link menu-title link-nav" href="{{route('dashboard.medicinetype.index')}}"><i data-feather="file-text"></i>
+                            <span>Тип лекарства</span>
                         </a>
                     </li> --}}
                 </ul>

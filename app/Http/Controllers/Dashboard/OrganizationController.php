@@ -36,35 +36,39 @@ class OrganizationController extends BaseController
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable',
-            'phone' => 'required|string|max:255',
-            'title' => 'required|string|max:255',
-            'region_id' => 'required|integer',
-            'district_id' => 'required|integer',
-            'address' => 'required|string|max:255',
-            'long_lat' => 'required|string|max:255',
-            'type_id' => 'required|integer',
-            'raiting' => 'required|integer',
-            'status' => 'required|string|max:255',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:20480',
-            'gallery' => 'required|image|mimes:jpeg,png,jpg,gif|max:20480',
-        ]);
-        if (!empty($validatedData['photo'])) {
-            $validatedData['photo'] = $this->photoSave($validatedData['photo'], 'image/organization');
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'nullable',
+                'phone' => 'required|string|max:255',
+                'title' => 'required|string|max:255',
+                'region_id' => 'required|integer',
+                'district_id' => 'required|integer',
+                'address' => 'required|string|max:255',
+                'long_lat' => 'required|string|max:255',
+                'type_id' => 'required|integer',
+                'raiting' => 'required|integer',
+                'status' => 'required|string|max:255',
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:20480',
+                'gallery' => 'required|image|mimes:jpeg,png,jpg,gif|max:20480',
+            ]);
+            if (!empty($validatedData['photo'])) {
+                $validatedData['photo'] = $this->photoSave($validatedData['photo'], 'image/organization');
+            }
+            if (!empty($validatedData['gallery'])) {
+                $validatedData['gallery'] = $this->photoSave($validatedData['gallery'], 'image/organization/gallery');
+            }
+            $organization = Organization::create($validatedData);
+            if (!empty($request->organizationtypes)) {
+                $organization->organizationtypes()->attach($request->organizationtypes);
+            }
+            if (!empty($request->services)) {
+                $organization->services()->attach($request->services);
+            }
+            return redirect()->route('dashboard.organization.store');
+            } catch (ModelNotFoundException $e) {
+            abort(404);
         }
-        if (!empty($validatedData['gallery'])) {
-            $validatedData['gallery'] = $this->photoSave($validatedData['gallery'], 'image/organization/gallery');
-        }
-        $organization = Organization::create($validatedData);
-        if (!empty($request->organizationtypes)) {
-            $organization->organizationtypes()->attach($request->organizationtypes);
-        }
-        if (!empty($request->services)) {
-            $organization->services()->attach($request->services);
-        }
-        return redirect()->route('dashboard.organization.store');
     }
 
     public function edit($id)
@@ -103,7 +107,6 @@ class OrganizationController extends BaseController
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         try {
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',

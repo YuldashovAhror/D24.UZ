@@ -96,7 +96,7 @@ class PersonController extends BaseController
             'professionlevel_id',
         );
         return view('dashboard.person.edit', [
-            'organizationtype'=>$organizationtype,
+            'organizationtype' => $organizationtype,
             'users' => $users,
             'professions' => $professions,
             'professionlevels' => $professionlevels,
@@ -150,12 +150,14 @@ class PersonController extends BaseController
             $person->organizations()->detach();
             $person->professionlevels()->detach();
 
-            if (!empty($organization->photo)) {
+            if (
+                !empty($person->photo)
+            ) {
                 $this->fileDelete('\Person', $id, 'photo');
             }
             $person->delete();
 
-            return redirect()->route('dashboard.person.index');
+            return redirect()->route('dashboard.person.index'); 
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
