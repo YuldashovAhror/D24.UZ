@@ -4,43 +4,52 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     *
-     * @return \Illuminate\View\View
-     */
     public function create()
     {
         return view('auth.login');
     }
 
-    /**
-     * Handle an incoming authentication request.
-     *
-     * @param  \App\Http\Requests\Auth\LoginRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        dd($request->all());
+        
+        if ($request->phone) {
+            if (!Auth::check()) {
+                $mavjudFoydalanuvchi = User::where('phone', $request->phone)->first();
+                if (!$mavjudFoydalanuvchi) {
+                    User::create([
+                        'phone' => $request->phone,
+                        'phone_sms' => $request->phone_sms,
+                    ]);
+                    // Sahifaga yo'naltiramiz
+                    return redirect()->back();
+                } else {
+                    return redirect()->back();
+                }
+            }
+        }
 
-        $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if ($request->phone_sms) {
+            // dd('asd');
+            if (!Auth::check()) {
+                $phone_sms = User::where('phone_sms', $request->phone_sms)->first();
+                if ($phone_sms) {
+                    Auth::login($phone_sms);
+                    return redirect()->route('cabinet');
+                } else {
+                    return redirect()->back()->withInput()->withErrors(['phone_sms' => 'Sms code xato']);
+                }
+            }
+        }
     }
 
-    /**
-     * Destroy an authenticated session.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
